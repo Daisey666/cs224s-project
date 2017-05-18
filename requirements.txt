@@ -1,2 +1,6 @@
+conda
 tensorflow
 scikit-learn
+scipy
+python_speech_features
+soundfile
