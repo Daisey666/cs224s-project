@@ -33,10 +33,9 @@ def split_audio():
  		end = int(float(clip_info[1]) * SAMPLE_RATE)
 	        truth_value = clip_info[2] == "TRUTH"
 		clip = np.array(data[start : end])
+		total_len += len(clip)
 		#np.save("%s/%d_%d_%r.npy" % (CLIPS_DATA_PATH, subject_number, i, truth_value), clip)
 		clip_mfcc = psf.mfcc(clip, SAMPLE_RATE)
-		np.save("%s/%s/%d_%d_%r.npy" % (CLIPS_DATA_PATH, "clip_mfccs", subject_number, i, truth_value), clip_mfcc)
-        
-
+		#np.save("%s/%s/%d_%d_%r.npy" % (CLIPS_DATA_PATH, "clip_mfccs", subject_number, i, truth_value), clip_mfcc)
 
 split_audio()
