@@ -1,6 +1,8 @@
 conda
+nltk
 tensorflow
 scikit-learn
 scipy
 python_speech_features
 soundfile
+git+https://github.com/nltk/nltk_contrib.git
