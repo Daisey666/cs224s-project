@@ -38,4 +38,33 @@ def create_train_test_sets():
     np.save(RAW_DATA_PATH + "/test_inputs.npy", test_inputs)
     np.save(RAW_DATA_PATH + "/test_labels.npy", test_labels)
 
-create_train_test_sets()
+#create_train_test_sets()
+
+OPENSMILE_OUTFILE = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/opensmile_features.arff"
+OPENSMILE_DATASETS_PATH = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/opensmile_datasets"
+
+def create_train_test_opensmile():
+    data = []
+    with open(OPENSMILE_OUTFILE, "r") as f:
+        for line in f: 
+            if line[0] != "'":
+                continue
+            clip_data = line.strip().split(',')
+            clip_name = clip_data[0]
+            clip_features = np.array([float(x) for x in clip_data[1 : -1]])
+            clip_label = int("True" in clip_name)
+            data.append((clip_features, clip_label))
+    random.shuffle(data)
+    train_set = data[ : int(NUM_SAMPLES * TRAIN_SPLIT)]
+    test_set = data[int(NUM_SAMPLES * TRAIN_SPLIT) : ]
+    #pdb.set_trace()
+    train_inputs = np.array([x[0] for x in train_set])
+    train_labels = np.array([x[1] for x in train_set])
+    test_inputs = np.array([x[0] for x in test_set])
+    test_labels = np.array([x[1] for x in test_set])
+    np.save(OPENSMILE_DATASETS_PATH + "/train_inputs.npy", train_inputs)
+    np.save(OPENSMILE_DATASETS_PATH + "/train_labels.npy", train_labels)
+    np.save(OPENSMILE_DATASETS_PATH + "/test_inputs.npy", test_inputs)
+    np.save(OPENSMILE_DATASETS_PATH + "/test_labels.npy", test_labels)
+
+create_train_test_opensmile()
