@@ -48,4 +48,4 @@ def split_audio():
                 if clip_mfcc.shape[0] >= 100:       
                     np.save("%s/%s/%d_%d_%r.npy" % (CLIPS_DATA_PATH, "clip_mfccs", subject_number, i, truth_value), clip_mfcc)
 
-split_audio()
+#split_audio()
