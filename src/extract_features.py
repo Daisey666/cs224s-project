@@ -23,6 +23,72 @@ def read_file_lines(f):
     time_and_word = [(float(line[2]), line[4].lower()) for line in lines]
     return time_and_word
 
+def sanity_check():
+    counter = 0
+    print "sanity check"
+    for subject_number in xrange(NUM_SUBJECTS):
+        letter = chr(ord('A') + (subject_number % 4))        # A
+        subj_id = "S-" + str(subject_number + 1) + letter    # S-1A
+        if "32" in subj_id  or "16" in subj_id: continue
+        print subj_id
+        audio_filename = ORIGINAL_DATA_PATH + "/" + subj_id + "/" + subj_id + "_R_16k.flac"
+        split_filename = ORIGINAL_DATA_PATH + "/" + subj_id + "/" + subj_id + "_pedal_hand_corr.TextGrid"
+        data, SAMPLE_RATE = sf.read(audio_filename)
+        textgrid_obj = tg.TextGrid.load(split_filename)
+        for _, tier in enumerate(textgrid_obj):
+            lines = str(tier).split('\n')[1:]
+            for i in xrange(len(lines)):
+                
+                # skip clips that are unlabelled
+                clip_info = lines[i].strip().split()
+                if len(clip_info) != 3 or clip_info[2] == "START":
+                    continue
+                counter += 1
+    print "clip count: " + str(counter)
+
+    counter = 0
+    for subject_number in xrange(NUM_SUBJECTS):
+        letter = chr(ord('A') + (subject_number % 4))        # A
+        subj_id = "S-" + str(subject_number + 1) + letter    # S-1A
+        interviewer_filename = ORIGINAL_DATA_PATH + "/" + subj_id + "/" + subj_id + "_L_16k-wrd.ctm"
+        interviewee_filename = ORIGINAL_DATA_PATH + "/" + subj_id + "/" + subj_id + "_R_16k-wrd.ctm"
+        split_filename = ORIGINAL_DATA_PATH + "/" + subj_id + "/" + subj_id + "_pedal_hand_corr.TextGrid"
+        textgrid_obj = tg.TextGrid.load(split_filename)
+        if not os.path.isfile(interviewer_filename) or not os.path.isfile(interviewee_filename): continue
+        print subj_id
+        with open(interviewer_filename, "r") as interviewer, open(interviewee_filename, "r") as interviewee:
+            interviewer_time_word, interviewee_time_word = read_file_lines(interviewer), read_file_lines(interviewee)
+            for _, tier in enumerate(textgrid_obj):
+                lines = str(tier).split('\n')[1:]
+                for i in xrange(len(lines)):
+                    clip_info = lines[i].strip().split()
+                    if len(clip_info) != 3 or clip_info[2] == "START":
+                        continue
+                    interviewer_time_word, interviewee_time_word = read_file_lines(interviewer), read_file_lines(interviewee)
+                    interviewer_to_write, interviewee_to_write = [], []
+                    start, end  = float(clip_info[0]), float(clip_info[1])
+                    truth_value = clip_info[2] == "TRUTH"
+                    # Read from the interviewer first:
+                    while len(interviewer_time_word) > 0:
+                        time, word = interviewer_time_word[0]
+                        if time <= end and  time >= start:
+                            interviewer_to_write.append(word)
+                        elif time > end: break
+                        interviewer_time_word = interviewer_time_word[1:]
+
+                    # Read from the interviewee now:
+                    while len(interviewee_time_word) > 0:
+                        time, word = interviewee_time_word[0]
+                        if time <= end and  time >= start:
+                            interviewee_to_write.append(word)
+                        elif time > end: break
+                        interviewee_time_word = interviewee_time_word[1:]
+                    counter += 1
+
+    print "sentence count: " + str(counter)
+
+sanity_check()
+
 def extract_words():
     output_filename = CLIPS_DATA_PATH + "/sentences.txt"
     with open(output_filename, "w+") as output:
@@ -68,7 +134,7 @@ def extract_words():
                     
 
 
-extract_words()
+# extract_words()
 
 def split_audio():
     """
