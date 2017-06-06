@@ -1,7 +1,7 @@
 import pdb
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
-WORD_VEC_PATH = "/afs/ir/users/j/w/jwlouie/cs224s/hw4/word_vector"
+WORD_VEC_PATH = "afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/glove/glove.6B.300d.txt"
 SENTENCES_FILENAME = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/sentences.txt"
 OUTPUT_FILENAME = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/qa_glove_features.txt"
 
@@ -25,10 +25,17 @@ def parse_glove(filename):
     return result
 
 def calculate_sentence_val(glove, sentence):
-    sentence_val = [0.0 for i in xrange(300)]
+    size = 300
+    if "50" in WORD_VEC_PATH:
+        size = 50
+    elif "100" in WORD_VEC_PATH:
+        size = 100
+    elif "200" in WORD_VEC_PATH:
+        size = 200
+    sentence_val = [0.0 for i in xrange(size)]
     for word in sentence:
         if word in glove:
-            sentence_val = [glove[word][i] + sentence_val[i] for i in xrange(300)]
+            sentence_val = [glove[word][i] + sentence_val[i] for i in xrange(size)]
     return [val / float(len(sentence_val)) for val in sentence_val]
 
 def featurize_words():

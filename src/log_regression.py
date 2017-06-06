@@ -1,12 +1,12 @@
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import pdb
 
 from sklearn import linear_model
 from sklearn import svm
 
 DUMB_PATH = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/"
-OPENSMILE_PATH = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/opensmile_datasets/"
+OPENSMILE_PATH = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/combined/"
 
 PATH = OPENSMILE_PATH
 TRAIN_INPUTS = PATH + "train_inputs.npy"
@@ -29,4 +29,5 @@ score = logreg.score(X_test, y_test)
 svm_fit = svm.SVC()
 svm_fit.fit(X_train, y_train)
 score = svm_fit.score(X_test, y_test)
+
 print score
