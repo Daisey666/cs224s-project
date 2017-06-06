@@ -87,8 +87,6 @@ def sanity_check():
 
     print "sentence count: " + str(counter)
 
-sanity_check()
-
 def extract_words():
     output_filename = CLIPS_DATA_PATH + "/sentences.txt"
     with open(output_filename, "w+") as output:
@@ -130,15 +128,9 @@ def extract_words():
                             interviewee_time_word = interviewee_time_word[1:]
                         output.write("answer: " + " ".join(interviewee_to_write) + "\n\n")
 
-        #pdb.set_trace()
-                    
-
-
-# extract_words()
-
 def split_audio():
     """
-    Splits each file into clips 
+    Splits each file into clips, saved into CLIPS_DATA_PATH
     """
     for subject_number in xrange(NUM_SUBJECTS):
         letter = chr(ord('A') + (subject_number % 4))        # A
@@ -168,5 +160,3 @@ def split_audio():
                 clip_mfcc = psf.mfcc(clip, SAMPLE_RATE)
                 if clip_mfcc.shape[0] >= 100:       
                     np.save("%s/%s/%d_%d_%r.npy" % (CLIPS_DATA_PATH, "clip_mfccs", subject_number, i, truth_value), clip_mfcc)
-
-#split_audio()
