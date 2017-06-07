@@ -1,7 +1,7 @@
 import pdb
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
-WORD_VEC_PATH = "afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/glove/glove.6B.300d.txt"
+WORD_VEC_PATH = "afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/glove/glove.6B.100d.txt"
 SENTENCES_FILENAME = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/sentences.txt"
 OUTPUT_FILENAME = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/qa_glove_features.txt"
 

@@ -3,7 +3,9 @@ nltk
 tensorflow
 scikit-learn
 scipy
+pathlib
 python_speech_features
+pyAudioAnalysis
 soundfile
 scikits.audiolab
 git+https://github.com/nltk/nltk_contrib.git
