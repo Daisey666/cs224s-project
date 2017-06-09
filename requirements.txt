@@ -1,5 +1,6 @@
 conda
 nltk
+liac-arff
 tensorflow
 scikit-learn
 scipy

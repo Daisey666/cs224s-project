@@ -204,7 +204,7 @@ def get_rnn_inputs(timestep_length = 0.2, truncate_length = 20):
     """ 
     prosodic + mfcc features - each clip split into quarter seconds
     """
-    os.system("rm " + RNN_INPUTS_ARFF_FILE)
+    #os.system("rm " + RNN_INPUTS_ARFF_FILE)
     for filename in os.listdir(WAV_CLIPS_PATH):
         subject, clip, truth = filename[:-4].split('_')
         clip_data, SAMPLE_RATE = sf.read(WAV_CLIPS_PATH + "/" + filename)
@@ -218,27 +218,24 @@ def get_rnn_inputs(timestep_length = 0.2, truncate_length = 20):
         splits = np.array(range(1, num_whole_timesteps + 1)) * timestep_size
         timesteps = np.array_split(clip_data, splits)
         #print len(timesteps), len(timesteps[-1])
-        
+        117126
         for i in xrange(len(timesteps)):
             # save each timestep as a separate wav
             timestep_filename = "%s_%s_%d_%s" % (subject, clip, i, truth)
             wav_filepath = "%s/%s.wav" % (RNN_INPUTS_PATH, timestep_filename)
             scikits.audiolab.wavwrite(timesteps[i], wav_filepath, fs=SAMPLE_RATE, enc='pcm32')
             # extract opensmile features of each timestep to RNN_INPUTS_ARFF_FILE
-            command = ' '.join([OPENSMILE_EXEC, "-C", OPENSMILE_CONFIG, \
-                                                "-N", timestep_filename, \
+            command = ' '.join([OPENSMILE_EXEC, "-C", OPENSMILE_CONFIG, 
+                                                "-N", timestep_filename, 
                                                 "-I", wav_filepath, 
-                                                "-O", RNN_INPUTS_ARFF_FILE])
+                                                "-O", RNN_INPUTS_ARFF_FILE, 
+                                                ">", "~/cs224s/log", "2>&1"])
             os.system(command)
-        print filename
-        
+            os.system("rm " + wav_filepath)
+        print filename        
 
 get_rnn_inputs()
 
 def get_rnn_inputs_lexical():
-    # prosodic + mfcc + lexical features - each clip has diff length
+    # prosodic + mfcc + lexical features
     pass
-    """
-    for each subject:
-        take the file 
-    """
