@@ -97,9 +97,10 @@ def create_train_test_combined():
 
 #create_train_test_combined()
 
+RNN_FINAL_INPUTS = RAW_DATA_PATH + "/rnn_inputs_npy"
+
 def create_rnn_inputs():
     ARFF_FILE = RAW_DATA_PATH + "/rnn_inputs.arff"
-    RNN_FINAL_INPUTS = RAW_DATA_PATH + "/rnn_inputs_npy"
     inputs = {}
     labels = {}
     with open(ARFF_FILE, "r") as f:
@@ -121,4 +122,21 @@ def create_rnn_inputs():
             inputs[subject][clip] = np.array(inputs[subject][clip])
             np.save("%s/%d_%d_%s.npy" % (RNN_FINAL_INPUTS, subject, clip, labels[subject][clip]), inputs[subject][clip])
 
-create_rnn_inputs()
+#create_rnn_inputs()
+
+RNN_TRAIN_DIR = RAW_DATA_PATH + "/rnn_train"
+RNN_TEST_DIR = RAW_DATA_PATH + "/rnn_test"
+
+def create_rnn_train_test():
+    filenames = os.listdir(RNN_FINAL_INPUTS)
+    random.shuffle(filenames)
+    train_set = filenames[ : int(len(filenames) * TRAIN_SPLIT)]
+    test_set = filenames[int(len(filenames) * TRAIN_SPLIT) : ]
+    os.system("mkdir %s" % RNN_TRAIN_DIR)
+    os.system("mkdir %s" % RNN_TEST_DIR)
+    for filename in train_set:
+        os.system("cp %s/%s %s" % (RNN_FINAL_INPUTS, filename, RNN_TRAIN_DIR))
+    for filename in test_set:
+        os.system("cp %s/%s %s" % (RNN_FINAL_INPUTS, filename, RNN_TEST_DIR))  
+
+create_rnn_train_test()

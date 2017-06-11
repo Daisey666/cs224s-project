@@ -218,7 +218,6 @@ def get_rnn_inputs(timestep_length = 0.2, truncate_length = 20):
         splits = np.array(range(1, num_whole_timesteps + 1)) * timestep_size
         timesteps = np.array_split(clip_data, splits)
         #print len(timesteps), len(timesteps[-1])
-        117126
         for i in xrange(len(timesteps)):
             # save each timestep as a separate wav
             timestep_filename = "%s_%s_%d_%s" % (subject, clip, i, truth)
@@ -232,7 +231,7 @@ def get_rnn_inputs(timestep_length = 0.2, truncate_length = 20):
                                                 ">", "~/cs224s/log", "2>&1"])
             os.system(command)
             os.system("rm " + wav_filepath)
-        print filename        
+        print filename
 
 get_rnn_inputs()
 
