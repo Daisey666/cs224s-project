@@ -1,10 +1,13 @@
 conda
 nltk
+liac-arff
 tensorflow
 matplotlib
 scikit-learn
 scipy
+pathlib
 python_speech_features
+pyAudioAnalysis
 soundfile
 scikits.audiolab
 imbalanced-learn
