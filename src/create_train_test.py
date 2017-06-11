@@ -69,9 +69,9 @@ def create_train_test_opensmile():
 
 # create_train_test_opensmile()
 
-COMBINED_FEATURES = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/features.txt"
-COMBINED_LABELS = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/labels.txt"
-COMBINED_DATSETS_PATH = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/combined"
+COMBINED_FEATURES = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/features_100.txt"
+COMBINED_LABELS = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/labels_100.txt"
+COMBINED_DATSETS_PATH = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/combined_100"
 
 def create_train_test_combined():
     data = []

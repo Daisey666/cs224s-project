@@ -3,7 +3,7 @@ import numpy as np
 import pdb
 from sklearn.neural_network import MLPClassifier
 
-COMBINED_PATH = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/combined/"
+COMBINED_PATH = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/combined_100/"
 
 PATH = COMBINED_PATH 
 TRAIN_INPUTS = PATH + "train_inputs.npy"

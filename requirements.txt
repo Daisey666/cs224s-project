@@ -1,9 +1,10 @@
 conda
 nltk
 tensorflow
+matplotlib
 scikit-learn
 scipy
 python_speech_features
 soundfile
 scikits.audiolab
-git+https://github.com/nltk/nltk_contrib.git
+imbalanced-learn

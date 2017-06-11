@@ -6,8 +6,8 @@ from os import listdir
 from os.path import isfile, join
 from subprocess import call
 
-DATA_FILE_PATH = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/wav_clips"
-OUTPUT_FILE = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/opensmile_features.arff"
+DATA_FILE_PATH = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/wav_clips_stripped"
+OUTPUT_FILE = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/cs224s-project/raw_data/opensmile_features_stripped.arff"
 OPENSMILE_PATH = "/afs/ir/users/j/w/jwlouie/cs224s/final-project/openSMILE-2.1.0/"
 OPENSMILE_EXEC = "SMILExtract"
 
